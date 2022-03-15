@@ -3,11 +3,26 @@ import { Grid,Paper, Avatar, TextField, Button, Typography,Link } from '@materia
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import {useState} from 'react';
 const Login=()=>{
 
+    const[username,setUsername]= useState('');
+    const[password,setPassword]= useState(''); 
+    const[userInfo,setUserInfo]=useState({
+        name:'',
+        pass:'',
+    })
     const paperStyle={padding :20,height:'70vh',width:280, margin:"20px auto"}
     const avatarStyle={backgroundColor:'#1bbd7e'}
     const btnstyle={margin:'8px 0'}
+
+    const handleSubmit =(e) =>{
+        e.preventDefault();
+        setUserInfo({
+            name:username,
+            pass:password,
+        })
+    }
     return(
         <Grid>
             <Paper elevation={10} style={paperStyle}>
@@ -15,8 +30,9 @@ const Login=()=>{
                      <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
                     <h2>Sign In</h2>
                 </Grid>
-                <TextField label='Username' placeholder='Enter username' fullWidth required/>
-                <TextField label='Password' placeholder='Enter password' type='password' fullWidth required/>
+                <form onSubmit={handleSubmit}>
+                <TextField label='Username' autoComplete='true' value={username} onChange={(e)=>{setUsername(e.target.value)}} placeholder='Enter username' fullWidth required/>
+                <TextField label='Password' autoComplete='false' value={password} onChange={(e)=>{setPassword(e.target.value)}} placeholder='Enter password' type='password' fullWidth required/>
                 <FormControlLabel
                     control={
                     <Checkbox
@@ -27,16 +43,13 @@ const Login=()=>{
                     label="Remember me"
                  />
                 <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth>Sign in</Button>
+                </form>
                 <Typography >
                      <Link href="#" >
                         Forgot password ?
                 </Link>
                 </Typography>
-                <Typography > Do you have an account ?
-                     <Link href="#" >
-                        Sign Up 
-                </Link>
-                </Typography>
+               
             </Paper>
         </Grid>
     )
