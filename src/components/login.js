@@ -19,6 +19,7 @@ const Login = ({ setIsLoggedIn }) => {
 	const [error, setError] = useState("");
 	const [isChecked, setIsChecked] = useState(false);
 	const [showError, setShowError] = useState(false);
+	const[loading,setLoading] =useState(false);
 
 	const userInfo = {
 		username: "",
@@ -37,7 +38,7 @@ const Login = ({ setIsLoggedIn }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
+		setLoading(true);
 		setPassword("");
 		setUsername("");
 		console.log(userInfo);
@@ -51,11 +52,13 @@ const Login = ({ setIsLoggedIn }) => {
 				console.log(response);
 
 				setIsLoggedIn(true);
+				setLoading(false);
 			})
 			.catch((err) => {
 				console.log(err);
 				setError("Invalid username and password");
 				setShowError(true);
+				setLoading(false)
 			});
 	};
 	useEffect(() => {
@@ -74,6 +77,17 @@ const Login = ({ setIsLoggedIn }) => {
 					<Avatar style={avatarStyle}>
 						<LockOutlinedIcon />
 					</Avatar>
+					{loading && (
+					<h3
+						style={{
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
+							color: "lightblue",
+						}}>
+						wait for the confirmation...
+					</h3>
+				)}
 					<h2>Sign In</h2>
 				</Grid>
 				<form onSubmit={handleSubmit}>
@@ -142,6 +156,7 @@ const Login = ({ setIsLoggedIn }) => {
 						{error}
 					</h3>
 				)}
+					
 			</Paper>
 		</Grid>
 	);
