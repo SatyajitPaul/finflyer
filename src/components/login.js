@@ -10,27 +10,30 @@ const Login=()=>{
     const[username,setUsername]= useState('');
     const[password,setPassword]= useState(''); 
     const[error,setError] =useState('');
+    const[isChecked,setIsChecked] =useState(false);
     const[showError,setShowError] =useState(false);
     
     const [userInfo,setUserInfo]= useState({
         name:'',
-        pass:''
+        pass:'',
+        checked:false,
     })
-    let timer=0;
+  
     const paperStyle={padding :20,height:'70vh',width:280, margin:"20px auto"}
     const avatarStyle={backgroundColor:'#1bbd7e'}
     const btnstyle={margin:'8px 0'}
 
     const handleSubmit =(e) =>{
         e.preventDefault();
-        userInfo.name= username;
-        userInfo.pass=password;
+        
         setPassword('');
         setUsername('');
         console.log(userInfo);
+        console.log(isChecked);
         setUserInfo({
             name:username,
             pass:password,
+            checked:!isChecked,
         })
         axios.post('https://finflyer.herokuapp.com/api/v1/auth/login',userInfo)
         .then(response=>{console.log(response)})
@@ -61,6 +64,8 @@ const Login=()=>{
                 <FormControlLabel
                     control={
                     <Checkbox
+                        value={isChecked}
+                        onChange={(e)=>{setIsChecked(!isChecked)}}
                         name="checkedB"
                         color="primary"
                     />
