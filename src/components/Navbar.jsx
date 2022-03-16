@@ -2,7 +2,9 @@ import React from 'react'
 import {AppBar,Toolbar, makeStyles,Typography,Badge,alpha,InputBase} from "@material-ui/core";
 import Search from '@material-ui/icons/Search';
 import Mail from '@material-ui/icons/Mail';
-import Notifications from '@material-ui/icons/Notifications';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import Exit from "@material-ui/icons/ExitToApp"
+
 
 const useStyle = makeStyles(theme=>({
     toolbar:{
@@ -31,12 +33,23 @@ const useStyle = makeStyles(theme=>({
 
     },
     badge:{
-        marginRight:theme.spacing(2),
+        marginRight:theme.spacing(1),
+        
+    },
+    badgeNotificatios:{
+        marginRight:theme.spacing(1),
+        
+    },
+    logout:{
+
+        cursor: "pointer",
+
     }
+
  
 }))
 
-function Navbar() {
+function Navbar({setIsLoggedIn}) {
     const classes= useStyle();
   return (
     <AppBar>
@@ -50,12 +63,18 @@ function Navbar() {
 
         </div>
         <div className={classes.icons}>
-        <Badge badgeContent={4} color="secondary" className={classes.badge}>
+        <Badge badgeContent={0} color="secondary" className={classes.badge}>
             <Mail  />
         </Badge>
-        <Badge badgeContent={4} color="secondary">
-            <Notifications />
+        <Badge badgeContent={0} color="secondary" className={classes.badgeNotificatios}>
+            <NotificationsIcon />
         </Badge>
+        <Badge badgeContent={0} color="secondary">
+        <Exit  className={classes.logout} onClick={()=>{setIsLoggedIn(false)}} />
+        </Badge>
+        
+      
+        
 
         </div>
         

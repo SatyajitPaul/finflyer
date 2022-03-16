@@ -9,12 +9,15 @@ import Feed from "./components/Feed";
 const useStyle = makeStyles((theme) => ({}));
 function App() {
 	const [isloogedIn, setIsLoggedIn] = useState(false);
+ 
+  
 	const classes = useStyle();
 	return (
 		<div className='App'>
 			{isloogedIn ? (
 				<>
-					<Navbar />
+          
+					<Navbar setIsLoggedIn={setIsLoggedIn} />
 					<Grid container>
 						<Grid item sm={2} xs={2}>
 							<Leftbar />

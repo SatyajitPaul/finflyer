@@ -49,6 +49,7 @@ const Login = ({ setIsLoggedIn }) => {
 			.post("https://finflyer.herokuapp.com/api/v1/auth/login", userInfo)
 			.then((response) => {
 				console.log(response);
+
 				setIsLoggedIn(true);
 			})
 			.catch((err) => {
@@ -124,7 +125,11 @@ const Login = ({ setIsLoggedIn }) => {
 					</Button>
 				</form>
 				<Typography>
-					<Link href='#'>Forgot password ?</Link>
+					<Link
+						style={{ display: "flex", justifyContent: "flex-end" }}
+						href='#'>
+						Forgot password ?
+					</Link>
 				</Typography>
 				{showError && (
 					<h3
