@@ -44,23 +44,23 @@ function Leftbar() {
 		<Container className={classes.container}>
 			<div className={classes.item}>
 				<Home className={classes.icon} />
-				<Typography className={classes.text}>HomePage</Typography>
+				<Typography className={classes.text}>Home</Typography>
 			</div>
 			<div className={classes.item}>
 				<Home className={classes.icon} />
-				<Typography className={classes.text}>HomePage</Typography>
+				<Typography className={classes.text}>About</Typography>
 			</div>
 			<div className={classes.item}>
 				<Home className={classes.icon} />
-				<Typography className={classes.text}>HomePage</Typography>
+				<Typography className={classes.text}>Contactus</Typography>
 			</div>
 			<div className={classes.item}>
 				<Home className={classes.icon} />
-				<Typography className={classes.text}>HomePage</Typography>
+				<Typography className={classes.text}>Complain</Typography>
 			</div>
 			<div className={classes.item}>
 				<Home className={classes.icon} />
-				<Typography className={classes.text}>HomePage</Typography>
+				<Typography className={classes.text}>Menu</Typography>
 			</div>
 		</Container>
 	);
