@@ -19,6 +19,7 @@ const useStyle = makeStyles((theme) => ({
 	toolbar: {
 		display: "flex",
 		justifyContent: "space-between",
+		backgroundColor:'#9c27b0'
 	},
 	search: {
 		display: "flex",

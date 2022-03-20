@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { makeStyles, Container, Typography } from "@material-ui/core";
 import Home from "@material-ui/icons/Home";
 import WorkIcon from "@material-ui/icons/Work";
@@ -13,6 +13,8 @@ import CardMembershipRoundedIcon from "@material-ui/icons/CardMembershipRounded"
 import CellWifiIcon from "@material-ui/icons/CellWifi";
 import GavelIcon from "@material-ui/icons/Gavel";
 import ReportIcon from "@material-ui/icons/Report";
+import { SidebarData } from "./SidebarData";
+import { Link } from "react-router-dom";
 
 const useStyle = makeStyles((theme) => ({
 	container: {
@@ -52,17 +54,29 @@ const useStyle = makeStyles((theme) => ({
 	},
 }));
 
+
+
 function Leftbar() {
 	const classes = useStyle();
 	const [istoggled, setIsToggled] = useState(false);
 	const [istoggledBm, setIsToggledBm] = useState(false);
 	const [istoggledAff, setIsToggledAff] = useState(false);
+
 	return (
+
 		<Container className={classes.container}>
+			
+
 			<div className={classes.item}>
 				<Home color='primary' className={classes.icon} />
-				<Typography className={classes.text}>Home</Typography>
+				<Typography className={classes.text}>
+					
+					<Link to="/" style={{color:'green'}}>Home</Link>
+					
+					</Typography>
 			</div>
+
+
 			<div className={classes.item}>
 				<WorkIcon color='primary' className={classes.icon} />
 
@@ -83,7 +97,7 @@ function Leftbar() {
 							paddingTop: "10px",
 						}}>
 						<div>Add work</div>
-						<div>List of Work</div>
+						<Link  to="/work-list">List of Work</Link>
 					</div>
 				)}
 			</div>
@@ -111,7 +125,7 @@ function Leftbar() {
 				)}
 			</div>
 			<div className={classes.item}>
-				<PeopleAltIcon color='success' className={classes.icon} />
+				<PeopleAltIcon color='inherit' className={classes.icon} />
 				<Typography
 					onClick={() => {
 						setIsToggledAff(!istoggledAff);
@@ -129,7 +143,7 @@ function Leftbar() {
 							paddingTop: "10px",
 						}}>
 						<div>Finance</div>
-						<div>Products</div>
+						<Link to="/affiliate-product">Products</Link>
 					</div>
 				)}
 			</div>
