@@ -13,7 +13,7 @@ import CardMembershipRoundedIcon from "@material-ui/icons/CardMembershipRounded"
 import CellWifiIcon from "@material-ui/icons/CellWifi";
 import GavelIcon from "@material-ui/icons/Gavel";
 import ReportIcon from "@material-ui/icons/Report";
-import { SidebarData } from "./SidebarData";
+
 import { Link } from "react-router-dom";
 
 const useStyle = makeStyles((theme) => ({
@@ -96,7 +96,7 @@ function Leftbar() {
 							gap: "10px",
 							paddingTop: "10px",
 						}}>
-						<div>Add work</div>
+						<Link to="/work-entry">Add work</Link>
 						<Link  to="/work-list">List of Work</Link>
 					</div>
 				)}

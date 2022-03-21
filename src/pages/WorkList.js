@@ -9,12 +9,12 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 const columns = [
-	{ field: "_id", headerName: "S.No", width: 130 },
-	{ field: "description", headerName: "Work Name", width: 200 },
-	{ field: "type", headerName: "Work Type", width: 200 },
-	{ field: "createdAt", headerName: "Date", type: "date", width: 150 },
+	{ field: "_id", headerName: "S.No", minWidth: 130 },
+	{ field: "description", headerName: "Work Name", minWidth: 200 },
+	{ field: "type", headerName: "Work Type", minWidth: 200 },
+	{ field: "createdAt", headerName: "Date", type: "date", minWidth: 150 },
 
-	{ field: "Edit", headerName: "Edit", type: "boolean", width: 200 },
+	{ field: "Edit", headerName: "Edit", type: "boolean", minWidth: 200 },
 	{
 		field: "fullName",
 		headerName: "Status",
@@ -45,10 +45,13 @@ function WorkList() {
 	useEffect(() => {
 		fetch("https://finflyer.herokuapp.com/api/v1/private/affilate/finance")
 			.then((response) => {
+				console.log(response);
 				return response.json();
+
 			})
 			.then((data) => {
-				console.log(data.data);
+				// console.log(data.data);
+
 				setData([data.data]);
 			});
 	}, []);
@@ -73,3 +76,6 @@ function WorkList() {
 }
 
 export default WorkList;
+
+
+//  react .. 

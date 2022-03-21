@@ -16,9 +16,12 @@ import Home from "./pages/Home";
 function App() {
 	const [isloogedIn, setIsLoggedIn] = useState(true);
 	const [isMenuToggled, setIsMenuToggled] = useState(true);
+	const[userData,setUserData] =useState('');
 
 	return (
+		
 		<div className='App'>
+			
 			{isloogedIn ? (
 				<>
 					<Navbar
@@ -36,16 +39,19 @@ function App() {
 						<Grid item sm={10} xs={10}>
 							<Routes>
 								<Route path='/' exact element={<Home />} />
-								<Route path='/work-entry' element={<WorkEntry />} />
+								<Route path='/work-entry' element={<WorkEntry userData={userData} />} />
 								<Route path='/work-list' element={<WorkList />} />
 								<Route path='/affiliate-finance' element={<Finance />} />
 								<Route path='/affiliate-product' element={<Product />} />
+								
+
 							</Routes>
 						</Grid>
 					</Grid>
 				</>
 			) : (
-				<Login setIsLoggedIn={setIsLoggedIn} />
+				<Login setIsLoggedIn={setIsLoggedIn} setUserData={setUserData} />
+				
 			)}
 		</div>
 	);
