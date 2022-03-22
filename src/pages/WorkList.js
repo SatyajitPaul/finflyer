@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles, Container } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
+import axios from 'axios';
 
 const useStyle = makeStyles((theme) => ({
 	container: {
@@ -38,7 +39,7 @@ const columns = [
 // 	{ id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
 // ];
 
-function WorkList() {
+function WorkList({userData}) {
 	const classes = useStyle();
 	const [data, setData] = useState([]);
 
@@ -50,11 +51,27 @@ function WorkList() {
 
 			})
 			.then((data) => {
-				// console.log(data.data);
+				
 
 				setData([data.data]);
 			});
 	}, []);
+
+	useEffect(()=>{
+		axios
+		.post(
+			"https://finflyer.herokuapp.com/api/v1/private/worklist",
+			userData,
+		)
+		.then((response) => {
+			console.log(response);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+	})
+
+
 
 	return (
 		<Container className={classes.container}>

@@ -13,3 +13,22 @@ function Test() {
 }
 
 export default Test;
+
+
+<form onSubmit={handleSubmit}>
+				<label>Work Name:- </label>
+				<input
+					value={workName}
+					onChange={(e) => {
+						setWorkName(e.target.value);
+					}}
+				/>
+				<label>Work Type:- </label>
+				<input
+					value={workType}
+					onChange={(e) => {
+						setWorkType(e.target.value);
+					}}
+				/>
+				<button>add work </button>
+			</form>

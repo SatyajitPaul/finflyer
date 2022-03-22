@@ -4,7 +4,7 @@ import "./App.css";
 import Login from "./components/login.js";
 import Navbar from "./components/Navbar";
 import Leftbar from "./components/Leftbar";
-import Feed from "./components/Feed";
+
 import { Routes, Route } from "react-router-dom";
 
 import WorkEntry from "./pages/WorkEntry";
@@ -40,7 +40,7 @@ function App() {
 							<Routes>
 								<Route path='/' exact element={<Home />} />
 								<Route path='/work-entry' element={<WorkEntry userData={userData} />} />
-								<Route path='/work-list' element={<WorkList />} />
+								<Route path='/work-list' element={<WorkList userData={userData} />} />
 								<Route path='/affiliate-finance' element={<Finance />} />
 								<Route path='/affiliate-product' element={<Product />} />
 								
