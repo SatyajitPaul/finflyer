@@ -1,32 +1,30 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { makeStyles, Container } from "@material-ui/core";
+
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import WorkIcon from "@mui/icons-material/Work";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
-//mui input import
-import Box from "@mui/material/Box";
-import Input from "@mui/material/Input";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
-import TextField from "@mui/material/TextField";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-//button import
 
-import IconButton from "@mui/material/IconButton";
-import Fingerprint from "@mui/icons-material/Fingerprint";
-
-const useStyle = makeStyles((theme) => ({
-	container: {
-		paddingTop: theme.spacing(10),
-	},
-}));
+const theme = createTheme();
 
 function WorkEntry({ userData }) {
 	const [success, setSuccess] = useState(false);
 	const [workName, setWorkName] = useState("");
 	const [workType, setWorkType] = useState("");
-  const[error,setError]=  useState(false);
+	const [error, setError] = useState(false);
+	const [missingField, setMissingField] = useState(false);
+
 	const userDetails = {
 		username: userData,
 		name: "",
@@ -35,9 +33,10 @@ function WorkEntry({ userData }) {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (workName === "" || workType === "") {
+			setMissingField(true);
 			return;
 		}
-	
+
 		userDetails.name = workName;
 		userDetails.type = workType;
 		console.log(workName, workType, userData);
@@ -52,89 +51,137 @@ function WorkEntry({ userData }) {
 			})
 			.catch((err) => {
 				console.log(err);
-        setError(true)
+				setError(true);
 			});
 		setWorkName("");
 		setWorkType("");
 	};
 
 	useEffect(() => {
-	 setTimeout(() => {
+		setTimeout(() => {
 			setSuccess(false);
-      setError(false);
+			setError(false);
 		}, 2000);
-	
-	}, [success,error]);
+		setTimeout(() => {
+			setMissingField(false);
+		}, 4000);
+		
+	}, [success, error, missingField]);
 
-	const classes = useStyle();
 	return (
-		<Container className={classes.container}>
-			<div style={{ backgroundColor: "lightgreen", height: "100vh" }}>
-				<h1 style={{ display: "flex", justifyContent: "center" }}>
-					Add Work Here
-				</h1>
-				<Box
-					style={{ display: "flex", justifyContent: "center" }}
-					sx={{ "& > :not(style)": { m: 1 } }}>
-					<FormControl variant='standard'>
-						<InputLabel  htmlFor='input-with-icon-adornment'>
-							Work Name
-						</InputLabel>
-						<Input
-							id='input-with-icon-adornment'
-							value={workName}
-      
-							onChange={(e) => setWorkName(e.target.value)}
-							startAdornment={
-								<InputAdornment position='start'>
-									<AccountCircle />
-								</InputAdornment>
-							}
-						/>
-					</FormControl>
-					<TextField
-						id='input-with-icon-textfield'
-						label='Work Type'
-						value={workType}
-						onChange={(e) => setWorkType(e.target.value)}
-						InputProps={{
-							startAdornment: (
-								<InputAdornment position='start'>
-									<AccountCircle />
-								</InputAdornment>
-							),
-						}}
-						variant='standard'
-					/>
-
-					<Stack direction='row' spacing={1}>
-						<IconButton
-							onClick={handleSubmit}
-							aria-label='fingerprint'
-							color='success'>
-							<Fingerprint />
-						</IconButton>
-					</Stack>
-				</Box>
-
-				{success && (
-					<Stack sx={{ width: "100%", paddingTop: "100px" }} spacing={2}>
-						<Alert
-							severity='success'
-							style={{ display: "flex", justifyContent: "center" }}>
-							Work added successfully...
-						</Alert>
-					</Stack>
-				)}
-        {
-          error &&
-          <Stack sx={{ width: "100%", paddingTop: "100px" }} spacing={2}>
-            <Alert style={{ display: "flex", justifyContent: "center"}} severity="warning">Something Went Wrong!!</Alert>
-          </Stack>
-          
-        }
-			</div>
-		</Container>
+		<div>
+			{success && (
+				<Stack sx={{ width: "100%", paddingTop: "100px" }} spacing={2}>
+					<Alert
+						severity='success'
+						style={{ display: "flex", justifyContent: "center" }}>
+						Work added successfully...
+					</Alert>
+				</Stack>
+			)}
+			{error && (
+				<Stack sx={{ width: "100%", paddingTop: "100px" }} spacing={2}>
+					<Alert
+						style={{ display: "flex", justifyContent: "center" }}
+						severity='warning'>
+						Something Went Wrong!!
+					</Alert>
+				</Stack>
+			)}
+			{missingField && (
+				<Stack sx={{ width: "100%", paddingTop: "100px" }} spacing={2}>
+					<Alert
+						style={{ display: "flex", justifyContent: "center" }}
+						severity='warning'>
+						Fill all the fields!!
+					</Alert>
+				</Stack>
+			)}
+			<ThemeProvider theme={theme}>
+				<Container component='main' maxWidth='xs'>
+					<CssBaseline />
+					<Box
+						sx={{
+							marginTop: 8,
+							display: "flex",
+							flexDirection: "column",
+							alignItems: "center",
+						}}>
+						<Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+							<WorkIcon />
+						</Avatar>
+						<Typography component='h1' variant='h5'>
+							Add Work
+						</Typography>
+						<Box
+							component='form'
+							noValidate
+							onSubmit={handleSubmit}
+							sx={{ mt: 3 }}>
+							<Grid container spacing={2}>
+								<Grid item xs={12} sm={6}>
+									<TextField
+										autoComplete='given-name'
+										name='firstName'
+										required
+										fullWidth
+										id='firstName'
+										label='Frist Name'
+										autoFocus
+									/>
+								</Grid>
+								<Grid item xs={12} sm={6}>
+									<TextField
+										required
+										fullWidth
+										id='lastName'
+										label='Last Name'
+										name='lastName'
+										autoComplete='family-name'
+									/>
+								</Grid>
+								<Grid item xs={12}>
+									<TextField
+										required
+										fullWidth
+										id='email'
+										value={workName}
+										onChange={(e) => {
+											setWorkName(e.target.value);
+										}}
+										label='Work Name'
+										name='email'
+										autoComplete='email'
+									/>
+								</Grid>
+								<Grid item xs={12}>
+									<TextField
+										required
+										value={workType}
+										onChange={(e) => {
+											setWorkType(e.target.value);
+										}}
+										fullWidth
+										name='password'
+										label='Work-Tyype'
+										type='text'
+										id='password'
+									/>
+								</Grid>
+							</Grid>
+							<Button
+								type='submit'
+								fullWidth
+								variant='contained'
+								sx={{ mt: 3, mb: 2 }}>
+								Add
+							</Button>
+							<Grid container justifyContent='flex-end'></Grid>
+						</Box>
+					</Box>
+				</Container>
+			</ThemeProvider>
+		</div>
 	);
 }
 
