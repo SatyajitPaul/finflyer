@@ -1,34 +1,57 @@
 import React, { useState } from "react";
-import { makeStyles, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import "./App.css";
 import Login from "./components/login.js";
 import Navbar from "./components/Navbar";
 import Leftbar from "./components/Leftbar";
-import Feed from "./components/Feed";
 
-const useStyle = makeStyles((theme) => ({}));
+import { Routes, Route } from "react-router-dom";
+
+import WorkEntry from "./pages/WorkEntry";
+import WorkList from "./pages/WorkList";
+import Finance from "./pages/Finance";
+import Product from "./pages/Product";
+import Home from "./pages/Home";
+
 function App() {
-	const [isloogedIn, setIsLoggedIn] = useState(false);
- 
-  
-	const classes = useStyle();
+	const [isloogedIn, setIsLoggedIn] = useState(true);
+	const [isMenuToggled, setIsMenuToggled] = useState(true);
+	const[userData,setUserData] =useState('');
+
 	return (
+		
 		<div className='App'>
+			
 			{isloogedIn ? (
 				<>
-          
-					<Navbar setIsLoggedIn={setIsLoggedIn} />
+					<Navbar
+						setIsLoggedIn={setIsLoggedIn}
+						isMenuToggled={isMenuToggled}
+						setIsMenuToggled={setIsMenuToggled}
+					/>
 					<Grid container>
-						<Grid item sm={2} xs={2}>
-							<Leftbar />
-						</Grid>
-						<Grid item sm={8} xs={10}>
-							<Feed />
+						{isMenuToggled && (
+							<Grid item sm={2} xs={2}>
+								<Leftbar />
+							</Grid>
+						)}
+
+						<Grid item sm={10} xs={10}>
+							<Routes>
+								<Route path='/' exact element={<Home />} />
+								<Route path='/work-entry' element={<WorkEntry userData={userData} />} />
+								<Route path='/work-list' element={<WorkList userData={userData} />} />
+								<Route path='/affiliate-finance' element={<Finance />} />
+								<Route path='/affiliate-product' element={<Product />} />
+								
+
+							</Routes>
 						</Grid>
 					</Grid>
 				</>
 			) : (
-				<Login setIsLoggedIn={setIsLoggedIn} />
+				<Login setIsLoggedIn={setIsLoggedIn} setUserData={setUserData} />
+				
 			)}
 		</div>
 	);

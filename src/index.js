@@ -2,19 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { ThemeProvider } from '@material-ui/styles';
-import {theme } from "./theme"
+import { BackupOutlined } from '@material-ui/icons';
+
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import {BrowserRouter} from 'react-router-dom';
 
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  <BrowserRouter>
   
     <App />
     
-  </React.StrictMode>,
+  </BrowserRouter>,
   document.getElementById('root')
 );
 

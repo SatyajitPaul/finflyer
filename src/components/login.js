@@ -1,6 +1,7 @@
 //  imported required modules
 import React, { useEffect } from "react";
 import axios from "axios";
+import {useLocalStorage} from "../useLocalStorage"
 import {
 	Grid,
 	Paper,
@@ -44,15 +45,16 @@ const btnstyle = { margin: "8px 0" };
 
 // Login component starts..
 
-const Login = ({ setIsLoggedIn }) => {
+const Login = ({ setIsLoggedIn,setUserData }) => {
 	const classes= useStyle();
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
+	const [username, setUsername] = useLocalStorage('username','');
+	const [password, setPassword] = useLocalStorage('password','');
 	const [error, setError] = useState("");
 	const [isChecked, setIsChecked] = useState(false);
 	const [showError, setShowError] = useState(false);
 	const [loading, setLoading] = useState(false);
-
+// decode
+	
 	const userInfo = {
 		username: "",
 		password: "",
@@ -78,6 +80,7 @@ const Login = ({ setIsLoggedIn }) => {
 
 				setIsLoggedIn(true);
 				setLoading(false);
+				setUserData(userInfo.username)
 			})
 			.catch((err) => {
 				console.log(err);
@@ -86,6 +89,8 @@ const Login = ({ setIsLoggedIn }) => {
 				setLoading(false);
 			});
 	};
+
+	
 
 	// using timer methods for showError massage to disappear after 4000miliseconds...
 	useEffect(() => {
@@ -102,6 +107,7 @@ const Login = ({ setIsLoggedIn }) => {
 	return (
 		
 		<>
+		
 		
 			{loading ? (
 				<Backdrop open>
